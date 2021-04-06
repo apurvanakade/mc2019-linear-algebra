@@ -1,0 +1,66 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mydefinitions}
+
+%simple operators which can be pretty useful
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\pr}[2][\:]{\frac{\partial #1}{\partial #2}}
+\newcommand{\innerp}[2]{\langle #1, #2 \rangle}
+\newcommand*\conj[1]{\overline{#1}}
+\newcommand*\norm[2][]{\left\lVert #2 \right\rVert_{#1}}
+\newcommand*\abs[1]{\left\lvert #1 \right\rvert}
+\newcommand{\cat}[1]{\mathsf{#1}}
+
+%How does latex not have these?
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Maps}{Maps}
+\DeclareMathOperator{\maps}{maps}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator*{\holim}{holim}
+\DeclareMathOperator*{\hocolim}{hocolim}
+\DeclareMathOperator*{\hofib}{hofib}
+\DeclareMathOperator*{\hocofib}{hocofib}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\spn}{Span}
+\DeclareMathOperator{\mat}{Mat}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\codim}{codim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{ex}[theorem]{Example}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{definetable}
+  {\begin{longtable}{p{0.2\textwidth} | p{0.8\textwidth}}}
+  {\end{longtable}}
+
+  \theoremstyle{definition}
+  \newcounter{question}%[section]
+    % \numberwithin{question}{section}
+  \newtheorem{q}[question]{Q.}
+  \newtheorem*{q*}{Q}

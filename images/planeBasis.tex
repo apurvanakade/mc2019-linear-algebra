@@ -1,0 +1,14 @@
+\centering
+\begin{tikzpicture}
+  \clip(-2,-1) rectangle (5,4);
+  \draw (0,-1)--(0,10);
+  \draw (-2,0)--(10,0);
+
+  \draw [thick, ->] (0,0)--(3,1);
+  \node [below left] at (0,0) {$\vec{0}$};
+    \node [right] at (3,1) {$\vec{v}_1$};
+  \draw [thick, ->] (0,0)--(-1,2);
+    \node [above] at (-1,2) {$\vec{v}_2$};
+  \draw [thick, ->] (0,0)--(4,3);
+    \node [above right] at (4,3) {$\vec{v}$};
+\end{tikzpicture}

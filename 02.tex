@@ -1,0 +1,296 @@
+% !TEX root = index.tex
+
+\section{Dimension}
+
+\begin{qbox}
+  Consider the line $L = \{ c \vec{v}: c \in \bbr \} $ where $\vec{v}$ is a non-zero vector in $\bbr^n$. One basis for $L$ is $\calb = \{ \vec{v}\}$.
+  \begin{enumerate}
+    \item Argue that every basis of $L$ has exactly one element.
+  \end{enumerate}
+\end{qbox}
+
+\begin{qbox}
+  Consider the plane $P = \{ c_1 \vec{v}_1 + c_2 \vec{v}_2: c_1, c_2 \in \bbr \} $ where $\vec{v}_1, \vec{v}_2$ are non-zero vectors in $\bbr^n$ which are not linear multiples of each other.
+  One basis for $P$ is $\{ \vec{v}_1, \vec{v}_2 \}$.
+  \begin{enumerate}
+    \item Argue that every basis of $P$ has exactly two elements.
+  \end{enumerate}
+\end{qbox}
+
+This generalizes to arbitrary vector spaces.
+
+\begin{theorem}
+  \label{theorem:dimensionVectorSpace}
+  If a subspace $V$ of $\bbr^n$ has a basis $\calb$ of size $k$ then every basis $\calb'$ of $V$ has size $k$.
+\end{theorem}
+
+This number is then defined to be the dimension of the subspace $V$.
+
+\begin{mdframed}
+  The proof of Theorem \ref{theorem:dimensionVectorSpace} is a bit long and complicated.
+  If you are seeing this for the first time, you can assume this theorem without proof, so the the sections below are optional.
+  You should at least skim through them to get an idea of how the proof goes.
+\end{mdframed}
+
+We start by analysing arbitrary linearly independent sets inside a vector space.
+
+\begin{proposition}
+  \label{proposition:sizeOfLinIndependentSets}
+  Let $V$ be a subspace of $\bbr^n$ with a finite basis $\calb$.
+  Let $\cals$ be an arbitrary linearly independent subset of $V$.
+  Then $\abs{\cals} \le \abs{\calb}$.
+\end{proposition}
+\begin{proof}
+  Let $\calb = \set{\vec{v}_1, \dots, \vec{v}_k}$ be a basis of $V$ and let $\cals$ be a linearly independent subset of $V$. We want to show that $\ell \le k$.
+  We will instead prove the contrapositive:
+  {\it If  $\ell > k$ then there exist scalars $c_1$, \dots, $c_{\ell}$, not all 0, such that \begin{align}
+  \label{equation:linearDependence}
+    c_1\vec{w}_1 + \dots + c_\ell \vec{w}_\ell= 0.
+  \end{align}}
+  In the basis $\calb$, we can express the vectors $\vec{w_i}$'s as coordinate vectors.
+  \begin{align*}
+    [w_i]_{\calb}
+    &=
+    \begin{bmatrix}
+      A_{1i} \\
+      A_{2i} \\
+      \vdots \\
+      A_{ki}
+    \end{bmatrix}
+  \end{align*}
+  Equation \eqref{equation:linearDependence} then simplifies as
+  \begin{align*}
+    %&&
+    c_1\vec{w}_1 + \dots + c_\ell \vec{w}_\ell&= 0 \\
+    \implies %&&
+    c_1[\vec{w}_1]_\calb + \dots + c_\ell [\vec{w}_\ell]_\calb&= 0 \\
+    \implies %&&
+    c_1 \begin{bmatrix}
+      A_{11} \\
+      A_{21} \\
+      \vdots \\
+      A_{k1}
+    \end{bmatrix}
+    +
+    \dots
+    +
+    c_\ell \begin{bmatrix}
+      A_{1\ell} \\
+      A_{2\ell} \\
+      \vdots \\
+      A_{k\ell}
+    \end{bmatrix}
+    &= 0 \\
+    \implies
+    %&&
+    \begin{bmatrix}
+      A_{11}c_1 \\
+      A_{21}c_1 \\
+      \vdots \\
+      A_{k1}c_1
+    \end{bmatrix}
+    +
+    \dots
+    +
+    \begin{bmatrix}
+       A_{1\ell} c_\ell\\
+       A_{2\ell} c_\ell\\
+      \vdots \\
+       A_{k\ell}c_\ell
+    \end{bmatrix}
+    &= 0 \\
+    \implies
+    %&&
+    \begin{bmatrix}
+      A_{11} c_1 + \dots + A_{1\ell} c_\ell\\
+      A_{21} c_1 + \dots + A_{2\ell} c_\ell\\
+      \vdots \\
+      A_{k1} c_1 + \dots + A_{k\ell}c_\ell
+    \end{bmatrix}
+    &= 0 \\\\
+    \implies
+    %&&
+      A_{11} c_1 + \dots + A_{1\ell} c_\ell &= 0 \\
+      %&&
+      A_{21} c_1 + \dots + A_{2\ell} c_\ell &= 0 \\
+      %&&
+      \vdots \\
+      %&&
+      A_{k1} c_1 + \dots +  A_{k\ell}c_\ell &= 0
+  \end{align*}
+  These are $k$ equations in $\ell$ variables and $\ell > k$, so we have more variables than equations. Such a system is called an \emph{under-determined} linear system. Because the right-hand is zero, such a system always has a solution (Lemma \ref{theorem:underDeterminedLinearSystem}) with not all $c_i$ equal to 0.
+\end{proof}
+
+Because every basis is also a linearly independent set, we can use Proposition \ref{proposition:sizeOfLinIndependentSets} to say several things about bases.
+
+\begin{corollary}
+  Let $V$ be a subspace of $\bbr^n$.
+  \begin{enumerate}
+    \item If $\calb$ is a basis of $V$ then $|\calb| \le n$.
+    \item If $\calb$ and $\calb'$ are two bases of $V$, then $|\calb| = |\calb'|$.
+    \item Every basis of $\bbr^n$ has $n$ elements.
+  \end{enumerate}
+\end{corollary}
+
+\begin{qbox}
+  Prove the above corollaries using Proposition \ref{proposition:sizeOfLinIndependentSets}.
+\end{qbox}
+
+Notice that the above theorems compare the sizes of linearly independent sets to the size of a basis. But we have not shown that a basis exists in the first place.
+
+\begin{theorem}
+  \label{theorem:existenceOfBasis}
+  Let $V$ be a subspace of $\bbr^n$. Then $V$ has a basis.
+\end{theorem}
+\begin{proof}
+  We provide an algorithm for constructing a basis $\calb$.\\\\
+  Set $i=0$ and let $S_0 = \varnothing$.
+  \begin{enumerate}
+    \item If $\spn(S_i) = V$ we are done.
+    \item If $\spn(S_i) \neq V$ then there exists a vector $\vec{v}_i$ such that $\vec{v}_i \in V \setminus \spn(S_i)$.
+    \item Let $S_{i+1} = S_i \cup \set{\vec{v}_i}$ and increment $i$ by 1. Go back to Step 1.
+  \end{enumerate}
+  Once this process terminates the final set $S_i$ that we obtain is a basis for $V$.
+  \begin{qbox}
+    \begin{enumerate}
+      \item Show that the sets $S_i$ constructed above are all linearly independent.
+      \item Using Proposition \ref{proposition:sizeOfLinIndependentSets} argue that the above algorithm always terminates?
+      \item Prove that the final $S_i$ is a basis for $V$?
+    \end{enumerate}
+  \end{qbox}
+\end{proof}
+
+This allows to make the following definition.
+\begin{definition}
+  For a subspace $V$ of $\bbr^n$, the \emph{dimension} of $V$ is defined to be the size of any basis $\calb$.
+  \begin{align*}
+    \dim V := \abs{\calb} \mbox{ where } \calb \mbox{ is any basis of } V
+  \end{align*}
+\end{definition}
+
+\begin{qbox}(Optional)
+  Using a similar algorithm it is possible to prove a slightly stronger statement than Theorem \ref{theorem:existenceOfBasis}.
+  Let $V \subsetneq V'$ be subspaces of $\bbr^n$. Let $\calb$ be a basis of $V$. Show that $\calb$ can be extended to a basis $\calb'$ of $V'$.
+\end{qbox}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{definition}
+  If a vector space $V$ has a finite basis $\calb$ then we define
+  \begin{align*}
+    \dim V = \abs{\calb}
+  \end{align*}
+  Otherwise we say that $V$ is infinite dimensional.
+\end{definition}
+
+\begin{remark}
+  Our proofs about subspaces of $\bbr^n$ carry over to arbitrary vector spaces verbatim, except the one about existence of basis. For arbitrary vector spaces, what do you think might go wrong with the proof of Theorem \ref{theorem:existenceOfBasis}?\footnote{The proof of existence of basis of an arbitrary vector space relies on the Axiom of Choice.}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\begin{lemma}[Under-determined linear system]
+  \label{theorem:underDeterminedLinearSystem}
+  Consider the following system with $k$ equations and $\ell$ variables. ($A_{ij}$ are scalar constants and we are solving for the $c_i$'s.)
+  \begin{align*}
+    A_{11} c_1 + \dots + A_{1\ell}c_\ell  &= 0 \\
+    A_{21} c_1 + \dots + A_{2\ell}c_\ell  &= 0 \\
+    \vdots \\
+    A_{k1} c_1 + \dots +  A_{k\ell}c_\ell &= 0
+  \end{align*}
+  If $k < \ell$, then this system of equations always has a solution such that at least one of the $c_i$'s is non-zero.
+\end{lemma}
+\begin{proof}
+  Proof is induction on $k$.
+  \begin{qbox}
+    \emph{Base case: }Prove Lemma \ref{theorem:underDeterminedLinearSystem} for $k = 1$.
+  \end{qbox}
+  \emph{Induction hypothesis: }
+  Assume that we know Lemma \ref{theorem:underDeterminedLinearSystem} to be true when $k = m$.
+
+  \emph{Induction step: }
+  Consider now $k = m+1$.
+  \begin{qbox}
+    Argue that if $A_{11} = \dots = A_{1\ell} = 0$ then we are done by the induction hypothesis.
+  \end{qbox}
+  Without any loss of generality, assume that $A_{11} \neq 0$. Then the first equation gives us
+  \begin{align*}
+    c_1 = -\dfrac{c_2 A_{12} + \dots + c_l A_{1l}}{A_{11}}
+  \end{align*}
+  \begin{qbox}
+    Plug this in the other equations and conclude the proof using the induction hypothesis.
+  \end{qbox}
+\end{proof}
+
+\iffalse
+
+
+
+
+
+
+\subsection{Optional section: Direct sums and direct products}
+Given a collection of vector spaces $\set{V_i}_{i \in I}$, it is possible to construct two vector\todo{Put this in the linear transformations section.}
+\begin{definition}
+  The \emph{direct sum} $\bigoplus_{i \in I} V_i$ of the vector spaces $\set{V_i}_{i \in I}$ is defined as the collection of finite sums $\vec{v}_1 + \dots + \vec{v}_k$ for $\vec{v}_j$ in some $V_i$.
+\end{definition}
+
+\begin{definition}
+  The \emph{direct product} $\prod_{i \in I} V_i$ of the vector spaces $\set{V_i}_{i \in I}$ is defined as the collection of tuples $(\vec{v}_i)_{i \in I}$ where $\vec{v}_i \in V_i$.
+\end{definition}
+
+\begin{qbox}
+  Show that there is a natural linear transformation
+  \begin{equation*}
+    \varphi: \bigoplus_{i \in I} V_i \longrightarrow \prod_{i \in I} V_i
+  \end{equation*}
+  which is injective.
+  Further, show that $\varphi$ is an isomorphism if and only if $I$ is finite.
+\end{qbox}
+
+
+
+
+
+
+
+\subsection{Optional section: Infinite dimensional vector spaces}
+The following theorem requires the axiom of choice to prove.
+\begin{theorem}
+  Every vector space $V$ has a basis.
+\end{theorem}
+\begin{qbox}
+  Try to mimic the proof of Theorem \ref{theorem:existenceOfBasis}. What goes wrong? Can you think of a way to fix it?
+\end{qbox}
+
+This innocent theorem has surprising conquences.
+\begin{corollary}
+  The space of continuous functions $f: \bbr \rightarrow \bbr$ has a basis.
+\end{corollary}
+\begin{corollary}
+  The set of real numbers thought of as a vector space over the rational numbers has a basis. This is called the Hamel basis.
+\end{corollary}
+% For most of this class you can assume that $V$ is as subspace of $\bbr^n$.
+%
+% \begin{qbox}
+%   direct sums
+%   quotients
+% \end{qbox}
+\fi

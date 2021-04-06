@@ -1,0 +1,44 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}
+
+\RequirePackage{amsmath,amssymb,array,amsthm,stmaryrd}
+  \numberwithin{equation}{section}
+\RequirePackage{microtype}
+
+\RequirePackage{mydefinitions}
+\RequirePackage{myfonts}
+\RequirePackage{myfigure}
+\RequirePackage{myboxes}
+
+\RequirePackage{multicol}
+\RequirePackage{longtable}
+\RequirePackage{enumitem}
+% \RequirePackage{mdframed} %mdframed produces clashes, use tcolorbox instead
+
+\RequirePackage{hyperref}
+  \definecolor{link}{rgb}{0,0,0.5}
+  \hypersetup{
+     unicode,
+     colorlinks=true,
+     citecolor=link,
+     filecolor=link,
+     linkcolor=link,
+     urlcolor=link
+  }
+
+%Add a footnote without a superscript
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+\DeclareOption{showoverfullhbox}{
+  % Show overfull boxes
+  \overfullrule=2cm
+}
+\ProcessOptions\relax
+
+
+% Prevent inline equations from breaking across lines
+\relpenalty=10000
+\binoppenalty=10000
+

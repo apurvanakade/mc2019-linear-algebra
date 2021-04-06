@@ -1,0 +1,74 @@
+% !TEX root = index.tex
+
+\section*{Solutions to selected problems - 2}
+
+\begin{proof}[Solution to Q.33 Part 1]
+  For linear transformations $\call: V \rightarrow W$ and $\call': W \rightarrow U$,
+  \begin{enumerate}
+    \item \begin{align*}
+      \call' \circ \call(c \vec{v})
+      &= \call' ( \call(c \vec{v})) \\
+      &= \call' ( c\call(\vec{v})) && \mbox{ as $\call$ is a linear transformation}\\
+      &= c \call' ( \call(\vec{v})) && \mbox{ as $\call'$ is a linear transformation}
+    \end{align*}
+    \item \begin{align*}
+      \call' \circ \call(\vec{v} + \vec{w})
+      &= \call' ( \call(\vec{v} + \vec{w})) \\
+      &= \call' ( \call(\vec{v}) + \call(\vec{w})) && \mbox{ as $\call$ is a linear transformation}\\
+      &= \call' ( \call(\vec{v})) + \call' ( \call(\vec{w})) && \mbox{ as $\call'$ is a linear transformation}
+    \end{align*}
+  \end{enumerate}
+  And so $\call' \circ \call$ is a linear transformation.
+\end{proof}
+
+\begin{proof}[Solution to Q.35]
+  $\call: \bbr^2 \rightarrow \bbr^2$ sending $\begin{bmatrix} x \\y \end{bmatrix} \mapsto \begin{bmatrix} x + 1 \\ y \end{bmatrix}$ is not a linear operator, as it preserves neither scalar multiplication nor vector addition.
+
+  $\call(\begin{bmatrix} x \\ y \end{bmatrix}) + \call(\begin{bmatrix} x' \\ y' \end{bmatrix}) = \begin{bmatrix} x+1 \\ y \end{bmatrix} + \begin{bmatrix} x'+1 \\ y' \end{bmatrix} = \begin{bmatrix} x+x' + 2 \\ y + y' \end{bmatrix}$
+
+  $\call(\begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} x' \\ y' \end{bmatrix}) = \begin{bmatrix} x+x' \\ y + y' \end{bmatrix} = \begin{bmatrix} x+x' + 1 \\ y + y' \end{bmatrix}$
+
+  so $\call(\begin{bmatrix} x \\ y \end{bmatrix}) + \call(\begin{bmatrix} x' \\ y' \end{bmatrix}) \neq \call(\begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} x' \\ y' \end{bmatrix})$.
+\end{proof}
+
+\begin{proof}[Solution to Q.36]
+  A linear transformation $\call: \bbr^1 \rightarrow \bbr^1$ must preserve scalar multiplication.
+  Hence,
+  \begin{align}
+    \label{eq:tag1}
+    \tag{*}
+    \call([c]) = \call(c[1]) = c \call([1])
+  \end{align}
+  The addition condition gives us
+  \begin{align*}
+    \call([c + d]) = \call([c]) + \call([d]) \\
+    \implies (c+d) \call([1]) = c \call([1]) + d \call([1]) && \mbox{ by \eqref{eq:tag1}}
+  \end{align*}
+  But this is always true. So the addition condition does not provide us any new information about $\call$.
+
+  There are no other conditions. Hence a linear transformation $\call: \bbr^1 \rightarrow \bbr^1$ is completely determined by $\call([1])$, which can be any real number, say $[\alpha]$.
+  Then $\call([c])$ equals $ [c\alpha]$, i.e. $\call$ is a scaling by $\alpha$.
+\end{proof}
+
+\begin{proof}[Solution to Q.38 Part 2]
+  In order to determine the matrix corresponding to $\rot$ we need to determine $\rot(\vec{e}_1)$ and $\rot(\vec{e}_2)$.
+  By basic trigonometry,
+  \begin{align*}
+    \rot(\begin{bmatrix} 1 \\ 0 \end{bmatrix}) &= \begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix}\\
+    \rot(\begin{bmatrix} 0 \\ 1 \end{bmatrix}) &= \begin{bmatrix} -\sin \theta \\ \cos \theta \end{bmatrix}
+  \end{align*}
+  Hence, the corresponding matrix is
+  \begin{align*}
+    [\rot] = \begin{bmatrix} \cos \theta & - \sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Solution to Q.39 Part 2]
+  Using the formula for matrix multiplication
+  \begin{align*}
+    [\rot] \begin{bmatrix} x \\ y \end{bmatrix}
+    &= \begin{bmatrix} \cos \theta & - \sin \theta \\ \sin \theta & \cos \theta \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}\\
+    &= x \begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix} + y \begin{bmatrix} -\sin \theta \\ \cos \theta \end{bmatrix} \\
+    &= \begin{bmatrix} x \cos \theta - y \sin \theta \\ x \sin \theta + y \cos \theta \end{bmatrix}
+  \end{align*}
+\end{proof}

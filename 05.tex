@@ -1,0 +1,199 @@
+% !TEX root = index.tex
+
+
+\section{Final Remarks}
+
+
+\setlength{\epigraphwidth}{0.6\textwidth}
+\epigraph{\it Don't just read it; fight it!\\
+Ask your own questions, look for your own examples, discover your own proofs. Is the hypothesis necessary? Is the converse true? What happens in the classical special case? What about the degenerate cases? Where does the proof use the hypothesis? }{Paul Halmos}
+
+On the last day, we will just tie up some loose ends.
+
+\subsection{Rank-Nullity theorem}
+The following is first of the many simple and yet remarkably useful theorems in linear algebra.
+\begin{theorem}[Rank-Nullity theorem]
+  \label{theorem:rankNullityTheorem}
+  Let $A$ be a matrix of size $\ell \times k$ so that $A$ defines a linear transformation $A: \bbr^k \rightarrow \bbr^\ell $. Then,
+  \begin{align*}
+    \nul A + \rank A =  k.
+  \end{align*}
+\end{theorem}
+
+
+\begin{qbox}
+  Rank-nullity can be used to detect isomorphisms.
+  Let $A$ be a square matrix of size $k \times k$ representing a linear operator $A:\bbr^k \rightarrow \bbr^k$.\\
+
+  Using the Rank-Nullity theorem, show that the following are equivalent
+      \begin{enumerate}
+        \item $A$ is an isomorphism,
+        \item $\nul A = 0$,
+        \item $\rank A = k$.\\
+      \end{enumerate}
+\end{qbox}
+
+\begin{remark}
+  There is one more criterion for detecting isomorphisms
+
+    \begin{enumerate}
+      \item[4.] $\det A \neq 0$,
+    \end{enumerate}
+
+  where $\det A$ is the ``determinant of $A$''. Determinant is the signed volume of the $k$-dimensional cube formed by the columns of $A$, and can be computed very efficiently using Gaussian elimination.
+\end{remark}
+
+\begin{qbox}
+  Let $a$, $b$, $c$ be scalars. Assume that at least one of $a$, $b$, $c$ is non-zero.
+  \begin{enumerate}
+    \item Show that the matrix $A = \begin{bmatrix} a & b & c \end{bmatrix}$ has rank 1.
+    \item Using the Rank-Nullity Theorem, conclude that $ax + by + cz = 0$ defines a plane in $\bbr^3$.
+  \end{enumerate}
+  The same proof can be used to show that a single non-trivial linear equation always defines an $n-1$ dimensional hyperplane in $\bbr^n$.
+\end{qbox}
+
+
+\begin{proof}[Proof of the Rank-Nullity theorem]
+  Let $A: \bbr^k \rightarrow \bbr^\ell$. Let $$n = \nul A.$$
+  To prove the theorem, we will construct a basis of $\im A$ of size $k - n$.
+
+  Let $$\calb' = \set{\vec{v}_1, \dots, \vec{v}_n}$$ be a basis of $\ker A$.
+
+  \textbf{Case 1:} $n = k$. In this case, we have $\ker A = \bbr^k$. By the definition of kernel, $A \vec{v} = 0$ for all $\vec{v} \in \bbr^k$. Hence, $\im A = \{ \vec{0} \}$ which implies that $\rank A = 0$.
+
+  \textbf{Case 2:} $n < k$. In this case, by repeatedly adding linearly independent vectors as in the proof of Theorem \ref{theorem:existenceOfBasis}, we can extend $\calb'$ to a basis $\calb$ of $\bbr^k$.
+  \begin{align*}
+    \calb=\{\underbrace{\vec{v}_1, \dots, \vec{v}_n}_{\calb'}, \vec{w}_{n+1}, \dots, \vec{w}_k\}.
+  \end{align*}
+
+  \textbf{Claim:} The set $\calb''  = \{A\vec{w}_{n+1}, \dots, A\vec{w}_k \}$ is a basis for $\im A$.
+
+  We need to show that $\spn(\calb'') = \im A$ and $\calb''$ is linearly independent.
+  To prove the first part, note that any vector in $V$ can be written as
+  \begin{align}
+    \tag{*}
+    \label{eq:eq1}
+    \vec{v} = c_1 \vec{v}_1 + \dots + c_n \vec{v}_n + c_{n+1} \vec{w}_{n+1} + \dots + c_k \vec{w}_k
+  \end{align}
+  for some scalars $c_1, \dots, c_k$.
+  \begin{qbox}
+    Apply $A$ to both sides of \eqref{eq:eq1} to conclude that
+      \begin{align*}
+        \im A = \spn(A\vec{w}_{n+1}, \dots, A\vec{w}_k)
+      \end{align*}
+  \end{qbox}
+  It remains to show that $\calb''$ is linearly independent. Suppose there are scalars $d_{n+1}, \dots, d_k$ such that
+  \begin{align*}
+      d_{n+1} A\vec{w}_{n+1} + \dots + d_kA \vec{w}_k &= 0 \\
+      \implies A(d_{n+1} \vec{w}_{n+1} + \dots + d_k \vec{w}_k) &= 0 && \mbox{by linearity} \\
+      \implies d_{n+1} \vec{w}_{n+1} + \dots + d_k \vec{w}_k &\in \ker A && \mbox{by definition of }\ker \\
+      \implies d_{n+1} \vec{w}_{n+1} + \dots + d_k \vec{w}_k &\in \spn({\vec{v}_1, \dots, \vec{v}_n}) \\
+      \implies d_{n+1} \vec{w}_{n+1} + \dots + d_k \vec{w}_k &= d_1\vec{v}_1 + \dots + d_n \vec{v}_n && \mbox{by definition of }\spn
+  \end{align*}
+  for some scalars $d_1, \dots, d_n$.
+
+  But the vectors $\{\vec{v}_1, \dots, \vec{v}_n, \vec{w}_{n+1}, \dots, \vec{w}_k\}$ form a basis for $V$ and hence are linearly independent. Hence, the only possible $d_i$'s satisfying the last equation are $d_1 = \dots = d_k = 0$ which proves the linear independence of $\calb''$.
+\end{proof}
+
+\begin{remark}
+  Rank-Nullity theorem is closely related to theorems from other areas of mathematics. For example, vector spaces are abelian groups under the vector addition operation and subspaces are the same as (normal) subgroups. The first isomorphism theorem in group theory then gives us $$\bbr^k / \ker A \cong \im A.$$
+  The Rank-Nullity theorem is then a version of Lagrange's theorem.
+  \begin{qbox}[If you know what an exact sequence means]
+    Using the Rank-Nullity theorem, show that if
+    \begin{align*}
+      0 \rightarrow V_0 \rightarrow V_1 \rightarrow \dots \rightarrow V_n \rightarrow 0
+    \end{align*}
+    is an exact sequence of vector spaces then
+    \begin{align*}
+      \dim V_0 - \dim V_1 + \dots + (-1)^i \dim V_i + \dots + (-1)^n \dim V_n = 0
+    \end{align*}
+    This is saying that the Euler characteristic of an exact sequence is trivial.
+  \end{qbox}
+
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Composition of linear transformations}
+We saw in Section \ref{section:linearTransformation} that composition of linear transformations is itself a linear transformation. For Euclidean spaces, this gives rise to products of matrices.
+
+\begin{equation*}
+  \begin{tikzcd}
+    \bbr^k \ar[rr,"B"] \ar[rrrr,"AB"', bend right] && \bbr^\ell \ar[rr,"A"] && \bbr^m
+  \end{tikzcd}
+\end{equation*}
+
+By carefully expanding out $A(B( \vec{v}))$ one can find the general formula for $AB$, this is quite tedious to derive but easy to use. You should look it up.
+
+Here is the formula for multiplying two $2 \times 2$ matrices.
+
+\begin{equation*}
+  \begin{tikzcd}
+    \bbr^2 \ar[rr,"B"] \ar[rrrr,"AB"', bend right] && \bbr^2 \ar[rr,"A"] && \bbr^2
+  \end{tikzcd}
+\end{equation*}
+\begin{align}
+  \label{eq:eq2}
+  \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}
+  \begin{bmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{bmatrix}
+    &=
+  \begin{bmatrix} A_{11} B_{11} + A_{12} B_{21} & A_{11} B_{12} + A_{12} B_{22} \\ A_{21} B_{11} + A_{22} B_{21} & A_{21} B_{12} + A_{22} B_{22} \end{bmatrix}
+\end{align}
+
+\begin{qbox}
+  In Section \ref{section:linearTransformation}, we computed the identity, rotation, and reflection matrices
+  \begin{align*}
+    [\id_{\bbr^2}] &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \\\\
+    [\rot] &= \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}\\\\
+    [\refl] &= \begin{bmatrix} \cos 2\theta & \sin 2\theta \\ \sin 2\theta & -\cos 2\theta \end{bmatrix}
+  \end{align*}
+  Using \eqref{eq:eq2} compute
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $[\id_{\bbr^2}] \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}$
+      \item $ \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix} [\id_{\bbr^2}]$
+      \item $ [\rot] [\rot[\varphi]] $
+      \item $[\refl] [\refl]$
+      \item $[\refl] [\refl[\varphi]]$
+    \end{enumerate}
+  \end{multicols}
+  See any old friends? Interpret these geometrically.
+\end{qbox}
+
+\begin{qbox}[Optional] Derive the formula for matrix multiplication of $2 \times 2$ matrices using compositions of linear transformations.
+\end{qbox}
+
+\hrule
+\hrule
+\hrule
+
+Congratulations on making it this far!!!(Yay!) What we have ``covered'' in the past week is more than what you would do in a month of regular class.
+There is hardly an area of mathematics that does not use linear algebra, the more math you do the better you'll be able to understand and appreciate it.
+Here are some suggested topics to read from here:
+\begin{multicols}{2}
+  \begin{enumerate}
+    \item Change of basis theorem,
+    \item Eigenvalues and eigenvectors,
+    \item Determinants,
+    \item Gaussian elimination,
+    \item Inner product spaces,
+    \item Spectral theorem,
+    \item Jordan canonical forms,
+    \item Matrix groups.
+  \end{enumerate}
+\end{multicols}

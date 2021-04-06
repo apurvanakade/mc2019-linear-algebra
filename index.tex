@@ -1,0 +1,51 @@
+\documentclass[10pt]{article}
+
+\usepackage{style/preamble, style/mytikz}
+\usepackage{parskip}
+\setlist[enumerate]{topsep=1ex, itemsep=1ex, parsep=1ex}
+\usepackage{mathpazo}
+\usepackage{colortab}
+\usepackage[all,cmtip]{xy}
+\usepackage{epigraph}
+\usepackage[normalem]{ulem}
+\usepackage{tikz-3dplot}
+
+\allowdisplaybreaks
+
+
+\DeclareMathOperator{\nul}{null}
+\newcommand{\rot}[1][\theta]{\mathrm{Rot}_{#1}}
+\newcommand{\refl}[1][\theta]{\mathrm{Refl}_{#1}}
+\newcommand{\proj}[1][\theta]{\mathrm{Proj}_{#1}}
+\newcommand{\coords}[2]{[\vec{#1}]_{#2}}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\rhead{Crash Course on Linear Algebra}
+\lhead{Mathcamp 2019}
+\rfoot{Page \thepage}
+
+\title{Crash Course on Linear Algebra}
+% \author{\small{Apurva Nakade}}
+\date{}
+
+\setcounter{tocdepth}{2}
+
+\begin{document}
+\cleardoublepage
+\pagenumbering{roman}
+\maketitle
+\tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
+
+  \include{00}
+  \include{01}
+  \include{solutions1}
+  \include{01Summary}
+  \include{02}
+  \include{03}
+  \include{03Supplement}
+  \include{04}
+  \include{05}
+\end{document}

@@ -1,0 +1,16 @@
+\centering
+\begin{tikzpicture}
+  \clip(-1,-1) rectangle (5,4);
+  \draw (0,-1)--(0,10);
+  \draw (-1,0)--(10,0);
+
+  \draw [thick, ->] (0,0)--(3,1);
+  \node [below left] at (0,0) {$\vec{0}$};
+    \node [right] at (3,1) {$\vec{v}$};
+  \draw [thick, ->] (0,0)--(1,2);
+    \node [above] at (1,2) {$\vec{w}$};
+  \draw [dashed] (1,2)--(4,3);
+  \draw [dashed] (3,1)--(4,3);
+  \draw [thick, ->] (0,0)--(4,3);
+    \node [above right] at (4,3) {$\vec{v} + \vec{w}$};
+\end{tikzpicture}

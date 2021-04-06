@@ -1,0 +1,16 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mytikz}
+
+\RequirePackage{tikz}
+\RequirePackage{tikz-cd}
+  \usetikzlibrary{positioning,shapes,arrows}
+  \usetikzlibrary{external}
+  \tikzexternalize[prefix=tikz/]
+
+\RequirePackage{etoolbox}
+  \AtBeginEnvironment{tikzcd}{\tikzexternaldisable}
+  \AtEndEnvironment{tikzcd}{\tikzexternalenable}
+
+\RequirePackage{todonotes,xpatch}
+  \renewcommand{\todo}[2][]
+  {\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}

@@ -1,0 +1,293 @@
+% !TEX root = index.tex
+\section{Rank \& Nullity}
+  We saw that matrices encode linear transformations between Euclidean spaces.
+  A matrix of size $\ell \times k$ ( having $\ell$ rows and $k$ columns ) can multiply a vector of size $k$ to get a vector of size $\ell$.
+
+  \begin{align*}
+    A : \bbr^k &\longrightarrow \bbr^\ell \\
+    \vec{v} &\longmapsto A \vec{v}
+  \end{align*}
+
+  \begin{align}
+    \label{equation:matrixMult}
+    \begin{bmatrix}
+      A_{11} & A_{12} & \cdots & A_{1k} \\
+      A_{21} & A_{22} & \cdots & A_{2k} \\\\
+      \vdots & \vdots & \ddots & \vdots \\\\
+      A_{\ell 1} & A_{\ell 2} & \cdots & A_{\ell k}
+    \end{bmatrix}
+    \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_k \end{bmatrix}
+      &=
+      v_1 \begin{bmatrix}
+        A_{11} \\
+        A_{21} \\\\
+        \vdots \\\\
+        A_{\ell 1}
+      \end{bmatrix}
+      + v_2 \begin{bmatrix}
+        A_{12} \\
+        A_{22} \\\\
+        \vdots \\\\
+        A_{\ell 2}
+      \end{bmatrix}
+      + \dots +
+      v_k \begin{bmatrix}
+        A_{1k} \\
+        A_{2k} \\\\
+        \vdots \\\\
+        A_{\ell k}
+      \end{bmatrix}
+      \\\nonumber\\\nonumber
+      &=
+      \begin{bmatrix}
+        A_{11} v_1  + A_{12} v_2 + \cdots + A_{1k} v_k \\
+        A_{21} v_1 + A_{22} v_2 + \cdots + A_{2k} v_k \\\\
+        \vdots \\\\
+        A_{\ell 1} v_1 + A_{\ell 2} v_2+ \cdots + A_{\ell k} v_k
+      \end{bmatrix}\\\nonumber\\
+      \nonumber
+      \left[\mbox{size }\ell \times k \right]
+      \cdot \left[\mbox{size } k \right]
+      &=
+      \left[\mbox{size } \ell \right] \\\nonumber
+  \end{align}
+
+  % Another way to visualize the same formula is by taking the ``dot'' product of the $i^{th}$ column of the matrix $A$ with the vector $\vec{v}$.
+  % \begin{equation}\label{eq:appendrow}
+  %   \left[ \begin{array}{cccc}
+  %         A_{11} & A_{12} & \cdots & A_{1n} \\
+  %         \colorbox{green}{$A_{21}$} & \colorbox{green}{$A_{22}$} & \cdots & \colorbox{green}{$A_{2n}$} \\
+  %         \vdots & \vdots & \ddots & \vdots \\
+  %         A_{m1} & A_{m2} & \cdots & A_{mn}
+  %       \end{array}\right]
+  %   \left[  \begin{array}{c}
+  %             \colorbox{green}{$v_1$} \\
+  %             \colorbox{green}{$v_2$} \\\\
+  %             \vdots \\\\
+  %             \colorbox{green}{$v_n$}
+  %           \end{array} \right]
+  %         =
+  %   \left[      \begin{array}{c}
+  %               A_{11} v_1 + A_{12} v_2 + \dots + A_{1n} v_n \\
+  %               \colorbox{green}{$A_{21} v_1 + A_{22} v_2 + \dots + A_{2n} v_n$} \\
+  %               \vdots \\
+  %               A_{m1} v_1 + A_{m2} v_2 + \dots + A_{mn} v_n
+  %             \end{array} \right]
+  % \end{equation}
+
+\begin{qbox}
+  Using equation \eqref{equation:matrixMult}, check that the $i^{th}$ column of the matrix $A$ is exactly the vector $A\vec{e}_i$.
+\end{qbox}
+
+\begin{qbox}[Practice problems]
+  Compute $A \begin{bmatrix} x \\ y \\ z \end{bmatrix}$ for each of the following matrices.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 1 & 0\end{bmatrix}$
+      \item $\begin{bmatrix} 1 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 1 & 1\end{bmatrix}$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Linear systems}
+A \emph{linear system} (of $\ell$ equations in $k$ variables) is a collection of linear\footnote{Linear = degree 1 = only addition and scalar multiplication.} equations.
+\begin{align}
+  \label{equation:generalLinearSystem}
+  \begin{split}
+    A_{11} x_1  + A_{12} x_2 + \cdots + A_{1k} x_k &= \alpha_1 \\
+    A_{21} x_1  + A_{22} x_2 + \cdots + A_{2k} x_k &= \alpha_2 \\
+    \vdots \\
+    A_{\ell 1} x_1 + A_{\ell 2} x_2+ \cdots + A_{\ell k} x_k &= \alpha_\ell
+  \end{split}
+\end{align}
+where $A_{ij}$'s and $\alpha_i$'s are real numbers, and $x_i$'s are the variables we are solving for.
+By equation \eqref{equation:matrixMult} this is the same as
+\begin{align*}
+  \begin{bmatrix}
+    A_{11} & A_{12} & \cdots & A_{1k} \\
+    A_{21} & A_{22} & \cdots & A_{2k} \\\\
+    \vdots & \vdots & \ddots & \vdots \\\\
+    A_{\ell 1} & A_{\ell 2} & \cdots & A_{\ell k}
+  \end{bmatrix}
+  \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_k \end{bmatrix}
+    &=
+  \begin{bmatrix} \alpha_1 \\ \alpha_2 \\\\ \vdots \\\\ \alpha_\ell \end{bmatrix}
+    \\\\
+  A \vec{x}
+  &= \vec{\alpha}
+\end{align*}
+
+Thus matrices encode not only the linear transformations but also linear systems. This observation allows us to study linear systems using techniques from linear algebra.
+
+
+\subsubsection{Image}
+\begin{definition}
+  Let $A$ be a matrix of size $\ell \times k$.
+  The \emph{image} of a matrix $A$ is simply the image of the corresponding linear transformation $A:\bbr^k \rightarrow \bbr^\ell$ i.e. it is the set of all vectors $\vec{y} \in \bbr^\ell$ such that $A \vec{x} = \vec{y} $ for some $\vec{x} \in \bbr^k$.
+  \begin{align*}
+    \im(A) = \{ A \vec{x} \mid \vec{x} \in \bbr^k \}
+  \end{align*}
+\end{definition}
+
+\begin{qbox}
+  Show that the $\im(A)$ is a subspace of $\bbr^\ell$.
+\end{qbox}
+
+\begin{definition}
+  The dimension of $\im(A)$ is called the \emph{rank} of $A$.
+  \begin{align*}
+    \rank A := \dim \im (A)
+  \end{align*}
+\end{definition}
+
+\begin{qbox}
+  Check that equation \eqref{equation:generalLinearSystem} having a solution is the same as saying that $\vec{\alpha}$ is in the image of $A$.
+\end{qbox}
+
+\begin{qbox}
+  Using \eqref{equation:matrixMult}, show that $\im(A)$ is precisely the span of the column vectors of $A$.
+\end{qbox}
+
+Combining all the above statements we get,
+\begin{theorem}
+  The equation \eqref{equation:generalLinearSystem} has a solution if and only if the vector $\vec{\alpha}$ is in the vector space spanned by the column vectors of $A$.
+\end{theorem}
+
+Finding the image i.e. the span of column vectors in general is non-trivial. However, there is a very fast algorithm called Gaussian elimination for computing it.
+
+\begin{qbox}
+  \label{q:rankComputation1}
+  Find rank of each of the following matrices.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 1 & 0\end{bmatrix}$
+      \item $\begin{bmatrix} 1 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 1 & 1\end{bmatrix}$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+\begin{qbox}(Do this problem if you have done the section on linear transformations.)
+  \label{q:rankComputation2}
+  Using geometry, find rank of each of the following matrices.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $[\id_{\bbr^2}]$
+      \item $[\rot]$
+      \item $[\refl]$
+      \item $[\proj]$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Kernel}
+Once we know a solution exists, we can ask - what is the number of solutions? In general, there can be infinitely many solutions, but the dimension of the solution space is finite. This dimension is called the nullity.
+\begin{definition}
+  The \emph{kernel} of a matrix $A$ is the set of vector $\vec{x} \in \bbr^k$ such that $A \vec{x} = 0$.
+  \begin{align*}
+    \ker A := \{ \vec{x} \mid A \vec{x} = \vec{0} \} \subseteq \bbr^k
+  \end{align*}
+\end{definition}
+
+\begin{qbox}
+  Prove that $\ker A$ is a subspace of $\bbr^k$.
+\end{qbox}
+
+\begin{definition}
+  The \emph{nullity} of $A$ is the dimension of $\ker A$.
+  \begin{align*}
+    \nul A := \dim \ker (A)
+  \end{align*}
+\end{definition}
+
+\begin{qbox}
+  \label{q:nullityComputation1}
+  Find nullity of each of the following matrices.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 1 & 0\end{bmatrix}$
+      \item $\begin{bmatrix} 1 & 0 & 1 \end{bmatrix}$
+      \item $ \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 1 & 1\end{bmatrix}$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+\begin{qbox}(Do this problem if you have done the section on linear transformations.)
+  \label{q:nullityComputation2}
+  Using geometry, find nullity of each of the following matrices.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $[\id_{\bbr^2}]$
+      \item $[\rot]$
+      \item $[\refl]$
+      \item $[\proj]$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+\begin{qbox}
+  Consider a matrix $A$ of size $\ell \times k$ and a vector $\vec{\alpha} \in \bbr^\ell$.
+  \begin{enumerate}
+    \item Show that if $\vec{x}_1$, $\vec{x}_2$ are solutions of $A \vec{x} = \vec{\alpha}$ then $\vec{x}_1 - \vec{x}_2$ is a solution of $A \vec{x} = \vec{0}$.
+    \item Show that if $\vec{x}_1$ is a solution of $A \vec{x} = \vec{\alpha}$ and $\vec{x}_0$ is a solution of $A \vec{x} = \vec{0}$ then $\vec{x}_1 + \vec{x}_0$ is also a solution of $A \vec{x} = \vec{\alpha}$.
+  \end{enumerate}
+\end{qbox}
+
+
+Combining everything above we have the following fundamental theorem about the solution space of the system of equations.
+\begin{theorem}
+  \label{theorem:dimensionSolutionSpace}
+  Let $A$ be a matrix of size $\ell \times k$ and let $\vec{\alpha}$ be a vector in $\bbr^\ell$.
+  \begin{enumerate}
+    \item The linear system $A \vec{x} = \vec{\alpha}$ has a solution if an only if $\vec{\alpha}$ is in $\im A$.
+    \item If a solution exists, then the space of solutions has dimension\footnote{This is not strictly correct as the space of solutions of $A \vec{x} = \vec{\alpha}$ is not a vector space if $\alpha \neq 0$. Instead, we need to shift the space of solutions to the origin to make it a vector space. This is analogous to the fact that a line not passing through the origin is not a vector space, but we can shift it to the origin to make it one. Once shifted, the space of solutions becomes $\ker A$.} $\nul A$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+  If $\nul A = 0$ then $A \vec{x} = \vec{\alpha}$ has either a unique solution or no solution.
+  If $\nul A > 0$ then $A \vec{x} = \vec{\alpha}$ has either infinitely many solutions or no solution.
+\end{corollary}
+
+Once we know that we are looking for vector spaces we can use standard algorithms in linear algebra to find the solutions.
+
+\begin{qbox}
+  For your computations in Questions \ref{q:rankComputation1}, \ref{q:rankComputation2}, \ref{q:nullityComputation1}, and \ref{q:nullityComputation2} what is $\rank A + \nul A$?
+  \begin{align*}
+    \rank A + \nul A = ?
+  \end{align*}
+\end{qbox}

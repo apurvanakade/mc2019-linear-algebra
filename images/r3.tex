@@ -1,0 +1,16 @@
+\tdplotsetmaincoords{105}{-30}
+\begin{tikzpicture}[tdplot_main_coords,font=\sffamily,scale=0.7]
+ \tdplotsetrotatedcoords{00}{30}{0}
+ \begin{scope}[tdplot_rotated_coords]
+  \begin{scope}[canvas is xy plane at z=0]
+   \fill[gray,fill opacity=0.3] (-2,-3) rectangle (2,3);
+   \path (-150:2) coordinate (H) (-1.5,0) coordinate(X);
+   \pgflowlevelsynccm
+  \end{scope}
+  \draw[very thick,-stealth] (0,0,0) coordinate (O) -- (0,0,3) node[right]{$\vec{v}$};
+ \end{scope}
+ \pgfmathsetmacro{\Radius}{1.5}
+ \draw[-stealth]  (O)-- (2.5*\Radius,0,0) node[pos=1.15] {$y$-axis};
+ \draw[-stealth] (O) -- (0,3.5*\Radius,0) node[pos=1.15] {$x$-axis};
+ \draw[-stealth] (O) -- (0,0,2.5*\Radius) node[pos=1.05] {$z$-axis};
+\end{tikzpicture}

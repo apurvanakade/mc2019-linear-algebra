@@ -1,0 +1,740 @@
+% !TEX root = index.tex
+
+\section{Linear transformations}
+\label{section:linearTransformation}
+\setlength{\epigraphwidth}{0.6\textwidth}
+\epigraph{\it The unknown thing to be known appeared to me as some stretch of earth or hard marl, resisting penetration... the sea advances insensibly in silence, nothing seems to happen, nothing moves, the water is so far off you hardly hear it... yet it finally surrounds the resistant substance. }{Alexander Grothendieck}
+
+\begin{mdframed}
+  {\bf Notation: } From now on, we will use the term \emph{vector space} to mean a \emph{subspace of $\bbr^n$}.\tablefootnote{This is because all of our theorems are also true for finite dimensional abstract vector spaces i.e. abstract vector spaces for which a finite basis exists.}
+\end{mdframed}
+
+The ``category theory'' philosophy in mathematics says that in order to understand structured objects one must study structured maps between them.
+The structured maps between vector spaces are the ones that preserve linearity.
+
+\begin{definition}
+  A \emph{linear transformation} is a map $\call: V \rightarrow W$ between vector spaces $V$ and $W$ satisfying
+  \begin{enumerate}
+    \item $\call(c \vec{v}) = c \call (\vec{v})$,
+    \item $\call(\vec{v} + \vec{w}) = \call (\vec{v}) + \call (\vec{w})$.
+  \end{enumerate}
+  for all scalars $c \in \bbr$ and all vectors $\vec{v}$, $\vec{w} \in V$.
+
+  A linear transformation  $\call: V \rightarrow W$ is a (vector space) \emph{isomorphism} if it is a bijection of sets, in which case we say that the two vector spaces $V$ and $W$ are \emph{isomorphic}.
+\end{definition}
+
+\begin{qbox}
+  \begin{enumerate}
+    \item Show that if $\call: V \rightarrow W$ and $\call': W \rightarrow U$ are linear transformations, then so is their composition $\call' \circ \call: V \rightarrow U$.
+    \begin{equation*}
+      \begin{tikzcd}
+        V \ar[r,"\call"] & W \ar[r,"\call'"] & U
+      \end{tikzcd}
+    \end{equation*}
+    \item Show that if $\call: V \rightarrow W$ is an isomorphism, then the set-theoretic inverse map $\call^{-1}: W \rightarrow V$ is also a linear transformation.
+    \begin{equation*}
+      \begin{tikzcd}
+        V \ar[r,"\call", bend left] & W \ar[l,"\call^{-1}", bend left]
+      \end{tikzcd}
+    \end{equation*}
+  \end{enumerate}
+
+\end{qbox}
+
+
+
+\subsection{Examples in low dimensions}
+
+\begin{definition}
+    A linear transformation where the source and target is the same, $\call: V \rightarrow V$, is called a \emph{linear operator} on $V$.
+\end{definition}
+
+\begin{qbox}
+  \label{q:rotationReflection}
+  Use the Parallelogram Law to prove that the following maps are linear operators on $\bbr^2$.
+  \begin{enumerate}
+    \item $\rot: \bbr^2 \rightarrow \bbr^2$, rotation by an angle $\theta$ in the counterclockwise direction.
+    \item $\refl: \bbr^2 \rightarrow \bbr^2$, reflection about a line that forms an angle $\theta$ with the $x$-axis.
+    \item $\proj: \bbr^2 \rightarrow \bbr^2$, orthogonal projection onto a line that forms an angle $\theta$ with the $x$-axis.
+  \end{enumerate}
+  Which of the above maps are isomorphisms? For the ones that are isomorphisms, what are the inverses?
+\end{qbox}
+
+\begin{figure}[H]
+\minipage{0.3\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=2]
+    % \draw [dashed] (-1,0)--(4,0);
+    \draw [dashed] (-0.1,-0.1)--(1.5,1.5);
+    \draw [->, thick] (0,0)--(1,0) node [below] {$\vec{v}$};
+    \draw [->, thick] (0,0)--(0.707,0.707) node [above left] {$\rot \vec{v}$};
+    % \pic [draw, ->, "$\theta$", angle eccentricity=1.5] {angle = mary--origo--bob};
+  \end{tikzpicture}
+  % \caption*{$\rot$}
+\endminipage\hfill
+\minipage{0.3\textwidth}
+\begin{tikzpicture}[scale=2]
+  \draw [dashed] (-0.1,-0.1)--(1.5,1.5);
+  \draw [->, thick] (0,0)--(1,0) node [below] {$\vec{v}$};
+  \draw [->, thick] (0,0)--(0,1) node [above] {$\refl \vec{v}$};
+\end{tikzpicture}
+\endminipage\hfill
+\minipage{0.3\textwidth}
+\begin{tikzpicture}[scale=2]
+  \draw [dashed] (-0.1,-0.1)--(1.5,1.5);
+  \draw [->, thick] (0,0)--(1,0) node [below] {$\vec{v}$};
+  \draw [->, thick] (0,0)--(0.6, 0.6) node [above left] {$\proj \vec{v}$};
+  \draw [dashed] (1,0)--(0.6, 0.6);
+\end{tikzpicture}
+\endminipage
+\end{figure}
+
+\begin{qbox}
+  Is translation along the $x$-axis, $\begin{bmatrix} x \\ y \end{bmatrix} \mapsto \begin{bmatrix} x +1 \\ y \end{bmatrix}$, a linear operator on $\bbr^2$?
+\end{qbox}
+
+\begin{qbox}
+  \label{q:linearTransformBetweenR1}
+  What maps $\call: \bbr^1 \rightarrow \bbr^1$ are linear operators on $\bbr^1$?\hint{$\call$ is completely determined by $\call([1])$.}
+\end{qbox}
+
+\begin{qbox}
+  Show that the identity map $\id: V \rightarrow V$ is a linear operator on any vector space $V$.
+\end{qbox}
+
+
+
+
+
+
+
+
+
+\subsection{Linear transformations and matrices}
+We will see in Section \ref{section:linearTransformationsBases} that linear transformations are intricately related to bases.
+In this section, we will use bases and generalized coordinates to derive the formula for matrix multiplication.
+
+Consider a linear transformation between vector spaces
+\begin{align*}
+  \call: V \rightarrow W
+\end{align*}
+Let $\calb = \{ \vec{v}_1 , \dots, \vec{v}_k \}$ and $\calb'= \{ \vec{w}_1 , \dots, \vec{w}_\ell \}$ be bases of $V$ and $W$ respectively.
+For any $\vec{v} \in V$, as $\call(\vec{v})$ is a vector in $W$, and the set $\{ \vec{w}_1 , \dots, \vec{w}_\ell \}$ is a basis of $W$, we can write $\call(\vec{v})$ as a linear combination of the $\vec{w}_i$.
+Suppose
+\begin{align*}
+  \call (\vec{v}_1) &= A_{11} \vec{w}_1 + A_{21} \vec{w}_2 + \dots + A_{\ell 1} \vec{w}_\ell\\
+  \call (\vec{v}_2) &= A_{12} \vec{w}_1 + A_{22} \vec{w}_2  \dots + A_{\ell 2} \vec{w}_\ell \\
+  & \vdots \\
+  \call (\vec{v}_k) &= A_{1 k} \vec{w}_1 + + A_{2k} \vec{w}_2 \dots + A_{\ell k} \vec{w}_\ell
+\end{align*}
+where $A_{ij}$ are scalars, for $1 \le i \le \ell$ and $1 \le j \le k$.
+In generalized coordinates, these can be written as column vectors.
+\begin{align*}
+  [\call (\vec{v}_1)]_{\calb'} = \begin{bmatrix} A_{11} \\\\ \vdots \\\\ A_{\ell 1} \end{bmatrix} \quad
+  [\call (\vec{v}_2)]_{\calb'} = \begin{bmatrix} A_{12} \\\\ \vdots \\\\ A_{\ell 2} \end{bmatrix} \quad
+  \cdots \quad
+  [\call (\vec{v}_k)]_{\calb'} = \begin{bmatrix} A_{1k} \\\\ \vdots \\\\ A_{\ell k} \end{bmatrix}
+\end{align*}
+
+We then place the coordinate vectors $[\: \call \vec{v}_1 \:]_{\calb'}$, $[\: \call \vec{v}_2 \:]_{\calb'}$, $\ldots$, $[\: \call \vec{v}_k \:]_{\calb'}$ next to each other to form a grid with $\ell$ rows and $k$ columns, called an \emph{$\ell \times k$ matrix} which we will denote by $[\call]_{\calb \rightarrow \calb'}$.
+\begin{align*}
+  [\call]_{\calb \rightarrow \calb'}
+  := \begin{bmatrix}
+    A_{11} & A_{12} & \cdots & A_{1k} \\
+    A_{21} & A_{22} & \cdots & A_{2k} \\\\
+    \vdots & \vdots & \ddots & \vdots \\\\
+    A_{\ell 1} & A_{\ell 2} & \cdots & A_{\ell k}
+  \end{bmatrix}.
+\end{align*}
+This is the {matrix associated to/corresponding to} $\call$ for the bases $\calb$ and $\calb'$.
+
+
+When $V = \bbr^k$ and $W = \bbr^\ell$ and $\calb$ and $\calb'$ are the standard bases, we drop the basis symbols and denote the matrix by $[\call]$.
+
+\textbf{``Theorem.''}\emph{ Matrices are the same as linear transformations between Euclidean spaces. More generally, matrices are the same as linear transformations between vector spaces ``once we have chosen bases for the source and target''.}
+
+\begin{qbox}
+  Find matrices corresponding to the following linear operators on $\bbr^2$ in the standard bases.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $\id_{\bbr^2}$
+      \item $\rot$
+      \item $\refl$
+      \item $\proj$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+For a general vector $\vec{v} = c_1 \vec{v}_1 + \dots + c_k \vec{v}_k$ in $V$ by linearity, we have\\
+\begin{align*}
+  \call (\vec{v}) = c_1 \call (\vec{v}_1) + \dots + c_k \call (\vec{v}_k)\\
+\end{align*}
+Rewriting this equation using the bases and the generalized coordinate vectors we get\\
+\begin{align*}
+  [\call]_{\calb \rightarrow \calb'} [\vec{v}]_{\calb}
+  &= c_1 [\call (\vec{v}_1)]_{\calb'} + \dots + c_k [\call (\vec{v}_k)]_{\calb'} \\\\\\
+  \begin{bmatrix}
+    A_{11} & A_{12} & \cdots & A_{1k} \\
+    A_{21} & A_{22} & \cdots & A_{2k} \\\\
+    \vdots & \vdots & \ddots & \vdots \\\\
+    A_{\ell 1} & A_{\ell 2} & \cdots & A_{\ell k}
+  \end{bmatrix}
+  \begin{bmatrix} c_1 \\ c_2 \\ \vdots \\ c_k \end{bmatrix}
+    &=
+    c_1 \begin{bmatrix}
+      A_{11} \\
+      A_{21} \\\\
+      \vdots \\\\
+      A_{\ell 1}
+    \end{bmatrix}
+    + c_2 \begin{bmatrix}
+      A_{12} \\
+      A_{22} \\\\
+      \vdots \\\\
+      A_{\ell 2}
+    \end{bmatrix}
+    + \dots +
+    c_k \begin{bmatrix}
+      A_{1k} \\
+      A_{2k} \\\\
+      \vdots \\\\
+      A_{\ell k}
+    \end{bmatrix}
+    \\
+\end{align*}
+
+And, we have derived the formula for matrix multiplication!!!?!?!???!!
+
+\begin{qbox}
+  Compute the following using the formula for matrix multiplication in the standard basis.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $[\id_{\bbr^2}]\begin{bmatrix} x \\ y \end{bmatrix}$
+      \item $[\rot] \begin{bmatrix} x \\ y \end{bmatrix}$
+      \item $[\refl] \begin{bmatrix} x \\ y \end{bmatrix}$
+      \item $[\proj] \begin{bmatrix} x \\ y \end{bmatrix}$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+
+
+
+
+% By Q.\ref{q:linearTransformBetweenR1} every linear transformation $\call: \bbr^1 \rightarrow \bbr^1$ is just multiplication by a real number.
+% We can in general classsify all linear transformations between Euclidean spaces.
+%
+% A \emph{matrix} of size $m \times n$ is simply a grid of scalars with $m$ rows and $n$ columns. For a matrix $A$, we denote the entry in the $i^{th}$ row and $j^{th}$ column by $A_{ij}$.
+% \begin{align*}
+%   A = \begin{bmatrix}
+%     A_{11} & A_{12} & \cdots & A_{1n} \\
+%     A_{21} & A_{22} & \cdots & A_{2n} \\
+%     \vdots & \vdots & \ddots & \vdots \\
+%     A_{m1} & A_{m2} & \cdots & A_{mn}
+%   \end{bmatrix}.
+% \end{align*}
+% Denote by $\mat_{m \times n}(\bbr)$ the collection of matrices of size $m \times n$.
+%
+% % \begin{qbox}
+% %   Convince yourself that $\mat_{m \times n}(\bbr)$ is a vector space over the real numbers.
+% % \end{qbox}
+%
+% We can multiply an $m \times n$ matrix $A$ and a vector $\vec{v}$ of size $n$ to produce a vector $A \vec{v}$ of size $m$ as follows.
+%
+% There are two to understand what is going on:
+% \begin{enumerate}
+%   \item The fast method is to ``dot'' the $i^{th}$ row with $\vec{v}$ to produce the $i^{th}$ entry of $A \vec{v}$.
+%   \begin{equation}\label{eq:appendrow}
+%   \newcommand\x{\times}
+%     \left[ \begin{array}{cccc}
+%           A_{11} & A_{12} & \cdots & A_{1n} \\
+%           \colorbox{green}{$A_{21}$} & \colorbox{green}{$A_{22}$} & \cdots & \colorbox{green}{$A_{2n}$} \\
+%           \vdots & \vdots & \ddots & \vdots \\
+%           A_{m1} & A_{m2} & \cdots & A_{mn}
+%         \end{array}\right]
+%     \left[  \begin{array}{c}
+%               \colorbox{green}{$v_1$} \\
+%               \colorbox{green}{$v_2$} \\\\
+%               \vdots \\\\
+%               \colorbox{green}{$v_n$}
+%             \end{array} \right]
+%           =
+%     \left[      \begin{array}{c}
+%                 A_{11} v_1 + A_{12} v_2 + \dots + A_{1n} v_n \\
+%                 \colorbox{green}{$A_{21} v_1 + A_{22} v_2 + \dots + A_{2n} v_n$} \\
+%                 \vdots \\
+%                 A_{m1} v_1 + A_{m2} v_2 + \dots + A_{mn} v_n
+%               \end{array} \right]
+%   \end{equation}
+%   \item The \emph{span method} is to write the result as a span of the columns.
+%   \begin{align*}
+%       \begin{bmatrix}
+%         A_{11} & A_{12} & \cdots & A_{1n} \\
+%         {A_{21}} & A_{22} & \cdots & A_{2n} \\
+%         \vdots & \vdots & \ddots & \vdots \\
+%         A_{m1} & A_{m2} & \cdots & A_{mn}
+%       \end{bmatrix}
+%       \begin{bmatrix}
+%         v_1 \\
+%         v_2 \\\\
+%         \vdots \\\\
+%         v_n
+%       \end{bmatrix}
+%       &=
+%       v_1 \begin{bmatrix}
+%         A_{11}\\
+%         {A_{21}}\\
+%         \vdots \\
+%         A_{m1}
+%       \end{bmatrix}
+%       +
+%       v_2 \begin{bmatrix}
+%         A_{12}\\
+%         {A_{22}}\\
+%         \vdots \\
+%         A_{m2}
+%       \end{bmatrix}
+%       +
+%       \dots
+%       +
+%       v_n \begin{bmatrix}
+%         A_{1n}\\
+%         {A_{2n}}\\
+%         \vdots \\
+%         A_{mn}
+%       \end{bmatrix}
+%       \\\\
+%       &=
+%       \begin{bmatrix}
+%         A_{11} v_1 + A_{12} v_2 + \dots + A_{1n} v_n \\
+%         A_{21} v_1 + A_{22} v_2 + \dots + A_{2n} v_n \\
+%         \vdots \\
+%         A_{m1} v_1 + A_{m2} v_2 + \dots + A_{mn} v_n
+%       \end{bmatrix}
+%   \end{align*}
+%   Note that in order to be able to multiply $A$ to $\vec{v}$ we must have
+%   \begin{equation*}
+%     \mbox{number of rows of } A = \mbox{size of } \vec{v}
+%   \end{equation*}
+% \end{enumerate}
+%
+% \begin{qbox}[Practice problems]
+%   Compute $A \vec{v}$ for the following.
+%   \begin{enumerate}
+%     \item
+%     \item
+%     \item
+%     \item
+%   \end{enumerate}
+% \end{qbox}
+%
+% Given a matrix $A \in \mat_{m \times n}(\bbr)$ the (left) multiplication by $A$ defines a map
+% \begin{align*}
+%   \call_A : \bbr^n &\longrightarrow \bbr^m \\
+%   \vec{v} &\longmapsto A \vec{v}
+% \end{align*}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% \iffalse
+%
+%
+% Another way of saying the same thing is that $A\vec{v}$ is a vector of size $m$ whose $i^{th}$ entry is given by
+% \begin{align*}
+%     (A \vec{v})_{i} &= \sum \limits_{j=1}^n A_{ij}v_j.
+% \end{align*}
+%
+% \begin{qbox}[Practice problems]
+%   Practice problems of matrix mult.
+%   For $A \in \mat_{m \times n}(\bbr)$, what is $\call_A(\vec{e}_i)$, where $\vec{e}_i$ is a standard basis vector of $\bbr^n$.
+% \end{qbox}\todo{Practice problems of matrix mult.}
+%
+% (Left) Multiplication by $A \in \mat_{m \times n}(\bbr)$ defines a map
+% \begin{align*}
+%   \call_A : \bbr^n &\rightarrow \bbr^m \\
+%   v &\mapsto Av
+% \end{align*}
+%
+% \begin{qbox}
+%   Show that $\call_A$ is a linear transformation.
+% \end{qbox}
+%
+% This definition further extends to multiplication of matrices. Let $B$ be a matrix of size $n \times k$. Each column of $B$ is a vector of size $n$, so we can think of $B$ as a row of size $k$ of vectors of size $n$.
+% \begin{align*}
+%   B
+%   &= \begin{bmatrix}
+%     B_{11} & B_{12} & \cdots & B_{1k} \\
+%     B_{21} & B_{22} & \cdots & B_{2k} \\
+%     \vdots & \vdots & \ddots & \vdots \\
+%     B_{n1} & B_{n2} & \cdots & B_{nk}
+%   \end{bmatrix}\\
+%   &= \begin{bmatrix}
+%     \vec{B}_{*1} & \vec{B}_{*2} & \cdots &\vec{B}_{*k}
+%     \end{bmatrix}
+% \end{align*}
+% where $\vec{B}_{*i} = \begin{bmatrix} B_{1i} \\ \vdots \\ B_{ni} \end{bmatrix}$ is the $i^{th}$ column.
+% For $A\in \mat_{m \times n}(\bbr)$, define the product $AB$ to be a matrix of size $m \times k$ whose columns are $A\vec{B}_{*1}$, $A\vec{B}_{*2}$, $\dots$, $A\vec{B}_{*k}$.
+% \begin{align*}
+%   AB
+%   :=&
+%     \begin{bmatrix}
+%     A\vec{B}_{*1} & A\vec{B}_{*2} & \cdots & A\vec{B}_{*k}
+%     \end{bmatrix}
+% \end{align*}
+%
+% \begin{qbox}
+%   Practice matrix multiplication.
+%   \begin{enumerate}
+%     \item
+%     \item
+%     \item
+%     \item
+%   \end{enumerate}
+% \end{qbox}
+%
+% \begin{qbox}[Explicit formula for multiplication]$ \: $
+%    Let $A \in \mat_{m \times n}(\bbr)$, $B \in \mat_{n \times k}(\bbr)$, $C \in \mat_{k \times \ell}(\bbr)$.
+%   \begin{enumerate}
+%     \item Show that the entry in the $i^{th}$ row and $j^{th}$ column of $AB$ is given by
+%     \begin{align*}
+%       (AB)_{ij} = \sum \limits_{k = 1}^n A_{ik} B_{kj}.
+%     \end{align*}
+%     \item Show that $(AB) \vec{v} = A(B \vec{v})$ and hence $\call_{A} \circ \call_{B} = \call_{AB}$ i.e. the composition of linear transformations correspond to matrix multiplication.
+%     \item Show that
+%           \begin{align*}
+%             (AB)C = A(BC).
+%           \end{align*}
+%           We say that matrix multiplication is \textit{associative}.
+%   \end{enumerate}
+% \end{qbox}
+% A linear transformation $\call: V \rightarrow V$ with the same source and target is called a \textit{linear operator} on $V$. A square matrix $A \in \mat_{n \times n}(\bbr)$ defines a linear operator on $\bbr^n$.
+% Linear operators are especially important because you can always compose two linear operators. (In the language of abstract algebra, linear operators on a vector space form a ring.)
+%
+% \begin{qbox}
+%   Let $A$, $B$ be square matrices of size $n \times n$.
+%   \begin{enumerate}
+%     \item Define the \textit{trace} of $A$ to be the sum of diagonal entries of $A$.
+%           \begin{align*}
+%             \tr(A) = \sum \limits_{i = 1}^{n} A_{ii}
+%           \end{align*}
+%           Show that $\tr(AB) = \tr(BA)$.
+%     \item Find matrices $A$, $B$ such that $\tr(AB) \neq \tr(A)\tr(B)$.
+%     \end{enumerate}
+% \end{qbox}
+%
+%
+% \begin{qbox}[Invertible matrices]
+%   Let $A$, $B$ be square matrices of size $n \times n$.
+%   \begin{enumerate}
+%     \item Find matrices $A$, $B$ such that $AB \neq BA$ i.e. matrix multiplication is, in general, \emph{non-commutative}.
+%     \item Find $A$, $B$ such that neither $A$ nor $B$ is 0 but $AB = 0$.
+%     \item What is the linear transformation associated to the identity matrix,
+%     \begin{align*}
+%       \id
+%       &:= \begin{bmatrix}
+%         1 & 0 & \cdots & 0 \\
+%         0 & 1 & \cdots & 0 \\
+%         \vdots & \vdots & \ddots & \vdots \\
+%         0 & 0 & \cdots & 1
+%       \end{bmatrix}.
+%     \end{align*}
+%     \item The matrix $A$ is said to be \emph{invertible} if there exists a matrix $B$ such that $AB = \id$. Show that in this case $BA$ also equals $\id$. Further show that such a $B$ is unique. The matrix $B$ is called the inverse of $A$, denoted $B = A^{-1}$.
+%     \item $A$ is called a \emph{diagonal matrix} if $A_{ij} = 0 $ if $i \neq j$.
+%     \begin{align*}
+%       A
+%       &:= \begin{bmatrix}
+%         A_{11} & 0 & \cdots & 0 \\
+%         0 & A_{22} & \cdots & 0 \\
+%         \vdots & \vdots & \ddots & \vdots \\
+%         0 & 0 & \cdots & A_{nn}
+%       \end{bmatrix}
+%     \end{align*}
+%     Determine when such an $A$ is invertible and find the inverse.
+%     \item (Optional) $A$ is called an \emph{upper-triangular matrix} if $A_{ij} = 0 $ if $i > j$.
+%     \begin{align*}
+%       A
+%       &:= \begin{bmatrix}
+%         A_{11} & A_{12} & \cdots & A_{1n} \\
+%         0 & A_{22} & \cdots & A_{2n} \\
+%         \vdots & \vdots & \ddots & \vdots \\
+%         0 & 0 & \cdots & A_{nn}
+%       \end{bmatrix}
+%     \end{align*}
+%     Determine when such an $A$ is invertible and show that the inverse is also upper-triangular.
+%   \end{enumerate}
+% \end{qbox}
+%
+% \begin{qbox}
+%   \begin{enumerate}
+%     \item Show that $\mat_{m \times n}(\bbr)$ is a vector space. What is its dimension? Can you find a basis for it?
+%     \item Let $A \in \mat_{k \times m}(\bbr)$.
+%     Show that the left multiplication map
+%     \begin{align*}
+%       \call_A : \mat_{m \times n}(\bbr) &\rightarrow \mat_{k \times n}(\bbr) \\
+%       B &\mapsto AB
+%     \end{align*}
+%     is a linear transformation.
+%   \end{enumerate}
+% \end{qbox}
+%
+% \begin{qbox}
+%   The \emph{transpose} $A^T$ of a matrix $A$ is obtained by swapping the rows and columns of $A$,
+%   \begin{align*}
+%     (A^T)_{ij} = A_{ji}.
+%   \end{align*}
+%   \begin{enumerate}
+%     \item Show that {transpose} map
+%     \begin{align*}
+%       (-)^T : \mat_{m \times n}(\bbr) &\rightarrow \mat_{n \times m}(\bbr)  \\
+%       A &\mapsto A^T
+%     \end{align*}
+%     is a vector space isomorphism.
+%     \item Show that $A^T A$ and $AA^T$ are always well defined, and are square matrices.
+%     \item For column vectors $\vec{w}$, $\vec{v}$, thought of as a $n \times 1$ matrices, $\vec{v}^T \cdot \vec{w}$ is called the \emph{dot product}, denoted $\vec{v} \cdot \vec{w}$. Find an explicit formula for $\vec{v} \cdot \vec{w}$.
+%   \end{enumerate}
+% \end{qbox}
+% \todo{Break this problem up. Create a subsection on dot products.}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% \subsection{Optional section: Determinant}
+% The determinant is a map
+% \begin{align*}
+%   \det: \mat_{n \times n}(\bbr) \rightarrow \bbr
+% \end{align*}
+% defined recursively as follows.
+% Let $A \in \mat_{n \times n}(\bbr)$.
+% Let $\widetilde{A}_{ij}$ be the $(n-1) \times (n-1)$ matrix obtained by removing the $i^{th}$ row and the $j^{th}$ column.
+% This matrix is called an $(n-1)\times(n-1)$ \textit{minor} of $A$.
+% \begin{definition}
+%   Pick a row or a column of $A$. Assume that we have picked the $i^{th}$ row so that the entries of this row are $A_{i1}$, $\dots$, $A_{in}$.
+%   Define the \emph{determinant} of $A$ to be
+%   \begin{align*}
+%     \det A
+%     &:=
+%     \sum \limits_{j = 1}^n  (-1)^{i+j} A_{ij} \det \widetilde{A}_{ij} \\
+%     &:=
+%     (-1)^{i+1} A_{i1} \det \widetilde{A}_{i1} +(-1)^{i+2} A_{i2} \det \widetilde{A}_{i2} + \dots + (-1)^{i+n} A_{in} \det \widetilde{A}_{in} .
+%   \end{align*}
+% \end{definition}
+%
+% The proof of the following theorem is beyond the scope of this class.
+% \begin{theorem}
+%   Let $A \in \mat_{n \times n}(\bbr)$.
+%   \begin{enumerate}
+%     \item Determinant is well-defined i.e. it does not depend on our starting choice of row or column.
+%     \item $\det (AB) = \det A \det B$.
+%   \end{enumerate}
+% \end{theorem}
+%
+% \begin{qbox}
+%   \begin{enumerate}
+%     \item Compute the determinant of $A = \begin{bmatrix}
+%       A_{11} & A_{12} \\ A_{21} & A_{22}
+%     \end{bmatrix}$.
+%     \item Compute the determinant of $A = \begin{bmatrix}
+%       A_{11} & A_{12} & A_{13} \\
+%       A_{21} & A_{22} & A_{23} \\
+%       A_{31} & A_{32} & A_{33}
+%     \end{bmatrix}$.
+%     \item Compute the determinant of an upper triangular matrix.
+%     \item Show that $\det A = \det A^{T}$.
+%     \item Show that similar matrices have the same determinant.
+%     \item Show that if $A$ is invertible then $\det A \neq 0$.\tablefootnote{A most remarkable fact is that the converse of this statement is also true.}
+%   \end{enumerate}
+% \end{qbox}
+% \todo{break this problem up.}
+% \fi
+
+\subsection{Linear transformations and bases}
+\label{section:linearTransformationsBases}
+As it turns out, in order to study linear transformations between vector spaces, it suffices to study maps on the basis of the source.
+
+% Let $V$ be a vector space. Using a basis $\calb = \{ \vec{v}_1, \dots, \vec{v}_k \}$ we can define maps
+% \begin{align*}
+%   [-]_\calb : V & \longrightarrow \bbr^k
+%   &&&
+%   [-]^{-1}_\calb : \bbr^k & \longrightarrow V
+%     \\
+%   \vec{v} &\longmapsto [\: \vec{v} \: ]_\calb
+%   &&&
+%   \begin{bmatrix} c_1 \\ \vdots \\ c_k \end{bmatrix}
+%     &\longmapsto
+%     c_1 \vec{v}_1 + \dots + c_k \vec{v}_k
+% \end{align*}
+%
+%
+% \begin{proposition}
+%   \label{proposition:BasisIsomorphism}.
+%   The maps $[-]_\calb$ and $[-]^{-1}_\calb$ are linear transformations and hence define vector-space isomorphisms between $V$ and $\bbr^k$.
+% \end{proposition}
+% \begin{qbox}
+%   Prove Proposition \ref{proposition:BasisIsomorphism}.
+% \end{qbox}
+
+
+Let $V$ and $W$ be vector spaces.
+Let $\calb = \{ \vec{v}_1 , \dots, \vec{v}_k \}$ be a basis of $V$.
+
+
+\begin{proposition}
+  An arbitrary map $\varphi: \calb \rightarrow W$ can be  extended to a linear transformation $\call: V \rightarrow W$.
+\end{proposition}
+\begin{proof}
+  Consider an arbitrary map \begin{align*}
+    \varphi: \calb &\longrightarrow W, \\
+    \vec{v}_i &\longmapsto \varphi(\vec{v}_i).
+  \end{align*}
+      For any vector $\vec{v} \in V$, there exist unique scalars $c_1, \dots, c_k$ such that
+      $\vec{v} = c_1 \vec{v}_1 + \dots + c_k \vec{v}_k$.
+      Define a new map $\call_\varphi: V \rightarrow W$ as, \begin{align*}
+        \call_\varphi(\vec{v}) = c_1 \varphi(\vec{v}_1) + \dots + c_k \varphi(\vec{v}_k).
+    \end{align*}
+    \begin{qbox}
+      Prove that $\call_\varphi$ is a linear transformation.
+    \end{qbox}
+\end{proof}
+
+\begin{proposition}
+  Two linear transformations $\call$, $\call': V \rightarrow W$ which agree on $\calb$ are the same. More precisely,
+  \begin{align*}
+    \mbox{if $\:\call \vec{v}_i = \call' \vec{v}_i\:$ for all $\vec{v}_i$ in $\calb$,}\\ \mbox{then $\:\call \vec{v} = \call' \vec{v}\:$ for all $\vec{v}$ in $V$.}
+  \end{align*}
+\end{proposition}
+\begin{qbox}
+  Prove this using Theorem \ref{theorem:generalizedCoordinates}.
+\end{qbox}
+
+Combining the previous two propositions we get the following correspondence.
+\begin{theorem}
+  Let $V$ and $W$ be vector spaces. Let $\calb$ be a basis of $V$.
+  There is a 1-1 correspondence between set maps $\calb \rightarrow W$ and linear transformations $V \rightarrow W$.
+  \begin{align*}
+    \set{\mbox{set maps $\calb \rightarrow W$}}
+    &{\longleftrightarrow}
+    \set{\mbox{linear transformations $V \rightarrow W$}} \\
+    \varphi &\longmapsto \call_\varphi \\
+    \call|_{\calb} &\longmapsfrom \call
+  \end{align*}
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Optional: Eigenvalues and eigenvectors}
+\begin{definition}
+  For a linear operator $\call: V \rightarrow V$ a non-zero vector $\vec{v}$ in $V$ is called an \emph{eigenvector} with \emph{eigenvalue} $\lambda \in \bbr$ if
+  \begin{align*}
+    \call (\vec{v}) = \lambda \vec{v}.
+  \end{align*}
+  The collection of all eigenvalues is called the \emph{spectrum} of $\call$.
+\end{definition}
+
+\begin{qbox}
+  Let $V_\lambda$ be the set of eigenvectors with eigenvalue $\lambda$ along with the vector $\vec{0}$.
+  \begin{equation*}
+    V_\lambda = \{ \vec{v} \in V \: \mid \: \call (\vec{v}) = \lambda \vec{v}, \: \vec{v} \neq \vec{0}\} \cup \{ \vec{0}\}
+  \end{equation*}
+  Show that $V_\lambda$ is a vector space.
+\end{qbox}
+$V_\lambda$ is called the \emph{eigenspace} for the eigenvalue $\lambda$.
+If the total dimensions of all the eigenspaces equals the dimension of $V$ then we say that $\call$ is \emph{diagonalizable}.
+
+\begin{qbox}
+  For each of the following linear operators on $\bbr^2$, find the spectrum and eigenspaces.
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $\id_{\bbr^2}$
+      \item $\rot$
+      \item $\refl$
+      \item $\proj$
+    \end{enumerate}
+  \end{multicols}
+\end{qbox}
+
+Why care about eigenvalues and eigenvectors?
+There are far too many answers for this, here is just one.
+Oftentimes, a quantum mechanical system is modelled using a linear opearator (called the Hamiltonian of the system) on a vector space of possible states.
+The spectrum then is the possible energy values the system can attain and the vectors in the eigenspaces are the steady states for the system i.e. states which do not change over time.
+If the linear operator is diagonalizable, then the system simplifies drastically and one can study each eigenspace separately.
+
+To learn more about eigenvalues and eigenvectors consider taking Mark's class in W2 and to learn more about their use in Quantum Mechanics, consider taking Nic Ford's class in W3.
+
+% \begin{qbox}
+%   \begin{enumerate}
+%     \item Find eigenvalues and eigenvectors of diagonal matrices.
+%     \item Find the eigenvalues and eigenvectors (if any) of the rotation, reflection, and orthogonal projection maps in Q.
+%     \ref{q:rotationReflection}.
+%   \end{enumerate}
+% \end{qbox}
+%
+% \begin{qbox}
+%   Show that if $\vec{v} \neq 0 \in \ker \call$ then $\vec{v}$ is an eigenvector is an eigenvector of $\call$. What is the corresponding eigenvalue?
+% \end{qbox}
+%
+% The above problem provides us the method of computing eigenvectors and eigenvalues.
+% \begin{theorem}
+%   Let $\lambda$ be a real number.
+%   If $\vec{v} \in \ker (\call - \lambda \id)$ then $\vec{v}$ is an eigenvector of $\call$ with eigenvalue $\lambda$.
+% \end{theorem}
+% By Theorem \ref{theorem:determinantInvertibility} we further get
+% \begin{corollary}
+%   If $\det (\call - \lambda \id) = 0$ then $\call$ has an eigenvector with eigenvalue $\lambda$.
+% \end{corollary}
+%
+% \begin{qbox}
+%   Show that similar matrices have the same eigenvalues.
+% \end{qbox}
+%
+% What's the point of eigenvectors?
+%
+% \begin{theorem}
+%   If $A$ has $n$ linearly independent eigenvectors $\vec{b}_1, \dots, \vec{b}_n$ with eigenvalues $\lambda_1, \dots, \lambda_n$ then upon changing the basis (from the stardand basis) to $\calb = \{ \vec{b}_1, \dots, \vec{b}_n\}$ the matrix $A$ becomes a diagonal matrix!
+% \end{theorem}
+%
+% \begin{qbox}
+%   Check this.
+% \end{qbox}
+%
+% \begin{definition}
+%   A matrix $A \in \mat_{n \times n}(\bbr)$ is said to be diagonalizable if it has $n$ linearly independent eigenvectors.
+%   Such a collection of eigenvectors is called an \emph{eigenbasis}.
+% \end{definition}
+%
+% This phenomenon has innumerable applications in math.
+% If we think of a matrix as a system of $n$ equations, then having $n$ linearly independent eigenvectors means that we can ``decouple'' the system of equations by a suitable change of basis.
+%
+%
+% The set of eigenvalues of a linear operator $\call$ is called its \emph{spectrum}.
+% The Spectral Theorem garauntees the existence of an eigenbasis for certain kinds of linear operators (normal, unitary, orthogonal)...

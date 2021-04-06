@@ -1,0 +1,95 @@
+
+
+\section*{Solutions to selected problems - 1}
+
+  \begin{proof}[Solution to Q.4]
+    A line $L$ not passing through the origin can be written as
+    \begin{align*}
+      L = \{ \vec{v} + c \vec{w} : c \in \bbr\}
+    \end{align*}
+    \begin{figure}[H]
+      \centering
+      \begin{tikzpicture}[scale=0.75]
+        \clip(-1,-1) rectangle (10,5);
+
+        \draw [thick, ->] (0,0)--(3,1);
+        \node [below left] at (0,0) {$\vec{0}$};
+          \node [right] at (3,1) {$\vec{v}$};
+        \draw [thick, ->] (0,0)--(1,2);
+          \node [above] at (1,2) {$\vec{w}$};
+        \draw [dashed] (1,2)--(4,3);
+
+        \draw [thick, ->] (6,7)--(1,-3);
+          \node [right] at (4,3) {$L = \{ \vec{v} + c \vec{w} : c \in \bbr\}$};
+      \end{tikzpicture}
+    \end{figure}
+
+    Similarly, a plane in $\bbr^3$ that does not pass through the origin is given by $$\{  \vec{v} + c_1 \vec{w}_1 + c_2 \vec{w}_2\}.$$
+  \end{proof}
+
+
+
+
+
+  \begin{proof}[Solution to Q.6]
+    \textbf{Claim: }Every subspace of $\bbr^1$ is either $\{ \vec{0} \}$ or $\bbr^1$.\\
+    \textbf{Proof: }
+    Let $V$ be a subspace of $\bbr^1$.
+    We have already shown that $V$ contains the vector $\vec{0}$.
+    We will show that if $V \neq \{ \vec{0}\}$ then $V = \bbr^1$.
+
+    Suppose $V$ contains a non-zero vector $\vec{v} = [a]$ where $a \neq 0$.
+    Because $V$ is closed under scalar multiplication $c \vec{v} = c[a] = [ca]$ is also in $V$ for every real number $c$.
+    But $c$ can be any real number, so every vector $[b]$ is in $V$ which implies that $V = \bbr^1$.
+  \end{proof}
+
+  \begin{proof}[Solution to Q.7]
+    A line in $\bbr^2$ (or $\bbr^3$) is a subspace of $\bbr^2$ (or $\bbr^3$) if and only if it passes through the origin.
+  \end{proof}
+
+  \begin{proof}[Solution to Q.8]
+    A plane in $\bbr^3$ is a subspace of $\bbr^3$ if and only if it passes through the origin.
+  \end{proof}
+
+  \begin{proof}[Solution Q.10 Part 2]
+    The union of two subspaces is not always a subspace.
+    Consider the following subspaces of $\bbr^2$. Let $V$ be the $x$-axis and let $W$ be the $y$-axis.
+    Then $V \cup W$ is the union of $x$ and $y$ axes. But this is not a subspace as it is not closed under addition.
+  \end{proof}
+
+  \begin{proof}[Solution to Q.12 Part 6]
+    For $\cals = \{ \vec{e}_1 - \vec{e}_2, \vec{e}_2 - \vec{e}_3, \vec{e}_3 - \vec{e}_1\}$.
+    Notice the following identity:
+    \begin{align*}
+      \vec{e}_3 - \vec{e}_1 = -(\vec{e}_1 - \vec{e}_2) - (\vec{e}_2 - \vec{e}_3)
+    \end{align*}
+    \begin{figure}[H]
+      \centering
+      \begin{tikzpicture}[scale=3]
+        \node [below right] at (0,0) {$\vec{0}$};
+
+        \draw [thick, ->] (0,0)--(1,0);
+        \node [below left] at (1,0) {$\vec{e}_1 - \vec{e}_2$};
+
+        \draw [thick, ->] (0,0)--(-0.5,0.866);
+        \node [below left] at (-0.5,0.866) {$\vec{e}_2 - \vec{e}_3$};
+
+        \draw [thick, ->] (0,0)--(-0.5,-0.866);
+        \node [left] at (-0.5,-0.866) {$\vec{e}_3 - \vec{e}_1$};
+
+      \end{tikzpicture}
+    \end{figure}
+
+    So that we can describe a vector in $\spn(\cals)$ as
+    \begin{align*}
+      \spn(\cals) \ni \vec{v}
+      &=c_1(\vec{e}_1 - \vec{e}_2) + c_2 (\vec{e}_2 - \vec{e}_3) + c_3 (\vec{e}_3 - \vec{e}_1) \\
+      &= c_1(\vec{e}_1 - \vec{e}_2) + c_2 (\vec{e}_2 - \vec{e}_3) + c_3 \left(-(\vec{e}_1 - \vec{e}_2) - (\vec{e}_2 - \vec{e}_3)\right) \\
+      &= (c_1-c_3)(\vec{e}_1 - \vec{e}_2) + (c_2-c_3) (\vec{e}_2 - \vec{e}_3) \\
+      &= c_1'(\vec{e}_1 - \vec{e}_2) + c_2'(\vec{e}_2 - \vec{e}_3)
+      \in \spn\left((\vec{e}_1 - \vec{e}_2),(\vec{e}_2 - \vec{e}_3)\right).
+    \end{align*}
+    So $\vec{v}$ is in $\spn\left((\vec{e}_1 - \vec{e}_2),(\vec{e}_2 - \vec{e}_3)\right)$.
+
+    \emph{Answer:} $\spn(\cals)$ is a plane spanned by the vectors $\vec{e}_1 - \vec{e}_2$ and $\vec{e}_2 - \vec{e}_3$.
+  \end{proof}

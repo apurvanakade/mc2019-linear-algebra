@@ -1,0 +1,88 @@
+\section*{Summary of Section 1}
+\begin{itemize}
+  \item In higher dimensions,
+      \begin{enumerate}
+        \item a line passing through the origin is described as
+        \begin{equation*}
+          L = \{ c \vec{v} : c \in \bbr \}
+        \end{equation*}
+        \item a plane passing through the origin is described as
+        \begin{equation*}
+          P = \{ c_1 \vec{v}_1 + c_2 \vec{v}_2 : c_1, c_2 \in \bbr \}
+        \end{equation*}
+        when $\vec{v}_1$ is not a scalar multiple of $\vec{v}_2$.
+      \end{enumerate}
+    We generalize this using the notion of $\spn$. $L$ is the span of the set $\{\vec{v}\}$ and $P$ is the span of the set $\{ \vec{v}_1, \vec{v}_2 \}$.
+
+    \item More generally, for any subset $\cals \subset \bbr^n$
+    \begin{align*}
+      \spn(\cals) = \{ c_1 \vec{v}_1 + \dots + c_k \vec{v}_k \quad : \quad
+      & c_1, \dots, c_k \mbox{ are real numbers}, \\
+      & \vec{v}_1, \dots, \vec{v}_k \mbox{ are vectors in } S \}
+    \end{align*}
+    defines a subspace of $\bbr^n$. A subspace is a subset of $\bbr^n$ which is closed under scalar multiplication and addition.
+
+    However, there might be reduncacies in $\cals$. For example,
+    \begin{align*}
+      \spn(\vec{v}_1) &= \spn(\vec{v}_1, \vec{v}_2)
+      && \mbox{ if $\vec{v}_1$ is a scalar multiple of $\vec{v}_2$} \\
+      \spn(\vec{e}_1 - \vec{e}_2, \vec{e}_2 - \vec{e}_3, \vec{e}_3 - \vec{e}_1) &= \spn(\vec{e}_1 - \vec{e}_2, \vec{e}_2 - \vec{e}_3)
+    \end{align*}
+
+    \item This is ``corrected'' by linear independence (Definition \ref{def:linearIndependence}). For a subspace $V$ of $\bbr^n$, a set $\calb \subseteq V$ is said to be a \emph{basis} of $V$ if $\spn(\calb) = V$ and ${\calb}$ is linearly independent.
+
+    In the above examples, $L$ has basis $\calb = \{ \vec{v} \}$ and $P$ has basis $\{ \vec{v}_1, \vec{v}_2 \}$.
+
+    \item A basis allows us to define coordinates for a vector space.
+    \begin{enumerate}
+      \item For $L$ as above, with $\calb = \{ \vec{v} \}$
+      \begin{equation*}
+        [c\vec{v}]_{\calb} = [ c ]
+      \end{equation*}
+      \item For $P$ as above, with $\calb = \{ \vec{v}_1, \vec{v}_2\}$
+      \begin{equation*}
+        [c_1 \vec{v}_1 + c_2 \vec{v}_2]_{\calb} = \begin{bmatrix}
+          c_1 \\ c_2
+        \end{bmatrix}
+      \end{equation*}
+      \item More generally, if $V$ has basis $\calb = \{ \vec{v}_1, \dots, \vec{v}_k\}$ then
+      \begin{equation*}
+        [c_1 \vec{v}_1 + \dots + c_k \vec{v}_k]_{\calb} = \begin{bmatrix}
+          c_1 \\ \vdots \\c_k
+        \end{bmatrix}
+      \end{equation*}
+    \end{enumerate}
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[
+     >=latex,
+     % font=\footnotesize,
+     x={(1cm, 1cm)},
+     y={(1cm, -.5cm)},
+   ]
+     \def\xmin{-2}
+     \def\xmax{4}
+     \def\ymin{-2}
+     \def\ymax{4}
+     \draw[thin, dashed]
+       \foreach \x in {\xmin, ..., \xmax} {
+         (\x, \ymin) -- (\x, \ymax)
+       }
+       \foreach \y in {\ymin, ..., \ymax} {
+         (\xmin, \y) -- (\xmax, \y)
+       }
+     ;
+     \draw[<->, very thick]
+       (1, 0) node[above] {$\vec{v}_1$}
+       -- (0, 0)
+       -- (0, 1) node[below] {$\vec{v}_2$}
+     ;
+     \draw[->]
+       (0, 0)
+       -- (2, 3) node[above] {$\begin{bmatrix} 2 \\ 3 \end{bmatrix}$}
+     ;
+   \end{tikzpicture}
+  \caption{Generalized coordinates on a plane. In the basis $\calb=\{ \vec{v}_1, \vec{v}_2 \}$, the vector $\vec{v} = 2 \vec{v}_1 + 3 \vec{v}_2$ has coordinates $[\vec{v}]_{\calb} = \protect\begin{bmatrix} 2 \\ 3 \protect\end{bmatrix}$.}
+\end{figure}
