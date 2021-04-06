@@ -1,1 +1,1 @@
-# mc2019-group-cohomology
+# mc2019-linear-algebra
